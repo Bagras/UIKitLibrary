@@ -13,44 +13,74 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.uikit.R
+import com.example.uikit.theme.ColorBlack
 import com.example.uikit.theme.ColorInputStroke
+import com.example.uikit.theme.ColorWhite
+import kotlin.collections.mutableListOf
 
 @Composable
-fun LoginButtons(aaa: Aaaa){
+fun LoginButtons() {
 
-    Column(
-        Modifier.fillMaxWidth()
-    ) {
-            Button(onClick = {
+    val buttonList = mutableListOf<LoginWith>(
+        LoginWith(
+            "Войти с VK",
+            R.drawable.logo_vk
+        ),
+        LoginWith(
+            "Войти с Yandex",
+            R.drawable.logo_yandex
+        )
+    )
+    Column(Modifier.height(168.dp), verticalArrangement = Arrangement.Center) {
+        buttonList.forEach { buttonList ->
+            Button(
+                onClick = {
 
-            },
+                },
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .fillMaxWidth()
-                    .height(60.dp)
-                    ,
+                    .height(60.dp),
+                colors = ButtonDefaults.buttonColors(
+                    ColorWhite
+                ),
                 shape = RoundedCornerShape(12.dp),
                 border = BorderStroke(1.dp, ColorInputStroke)
             ) {
-                Row(Modifier.fillMaxSize(),
+                Row(
+                    Modifier.fillMaxSize(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center) {
-                    Icon(painter = painterResource(aaa.icon), null)
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(painter = painterResource(buttonList.icon), null, tint = Color.Unspecified)
                     Spacer(Modifier.width(16.dp))
-                    Text(aaa.name, fontSize = 14.sp)
+                    Text(buttonList.name, fontSize = 14.sp, color = ColorBlack)
                 }
             }
         }
     }
+}
 
-data class Aaaa(
+
+@Preview
+@Composable
+private fun Aaaaaaaa() {
+    LoginButtons()
+}
+
+data class LoginWith(
     val name: String,
     val icon: Int
 )
