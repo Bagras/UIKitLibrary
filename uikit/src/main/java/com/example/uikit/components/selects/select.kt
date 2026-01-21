@@ -71,4 +71,5 @@ fun Select(selectInput: String, selectInputChance: (String) -> Unit, placeholder
 @Preview
 @Composable
 private fun Preview() {
+
 }

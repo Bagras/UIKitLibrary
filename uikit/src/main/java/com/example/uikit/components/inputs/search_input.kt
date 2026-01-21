@@ -43,7 +43,7 @@ fun SearchInput(searchText: String, searchTextChange: (String) -> Unit) {
     SearchBar(
         inputField = {
             SearchBarDefaults.InputField(
-                query = searchText.toString(),
+                query = searchText,
                 onQueryChange = searchTextChange,
                 onSearch = {},
                 expanded = expanted,

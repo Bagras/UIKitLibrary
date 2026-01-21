@@ -23,13 +23,10 @@ import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
 
 @Composable
-fun UserDataInput(placeholderText: String) {
-    var inputType by remember { mutableStateOf("") }
+fun UserDataInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit) {
     OutlinedTextField(
-        value = inputType,
-        onValueChange = {
-            inputType = it
-        },
+        value = inputText,
+        onValueChange = inputTextChance,
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp),

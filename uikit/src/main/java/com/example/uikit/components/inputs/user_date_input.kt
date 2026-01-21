@@ -27,13 +27,10 @@ import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
 
 @Composable
-fun UserDateInput(placeholderText: String) {
-    var dateInput by remember { mutableStateOf("") }
+fun UserDateInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit) {
     OutlinedTextField(
-        value = dateInput,
-        onValueChange = {
-            dateInput = it
-        },
+        value = inputText,
+        onValueChange = inputTextChance,
         modifier = Modifier.fillMaxWidth().height(48.dp),
         placeholder = { Text(placeholderText, fontSize = 14.sp) },
         label = {Text("--.--.----", fontSize = 14.sp)},

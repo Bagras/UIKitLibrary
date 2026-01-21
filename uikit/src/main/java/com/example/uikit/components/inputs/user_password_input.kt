@@ -32,14 +32,11 @@ import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
 
 @Composable
-fun UserPasswordInput(placeholderText: String) {
-    var passwordInput by remember { mutableStateOf("") }
+fun UserPasswordInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit) {
     var passwordVisual by remember { mutableStateOf(true) }
     OutlinedTextField(
-        value = passwordInput,
-        onValueChange = {
-            passwordInput = it
-        },
+        value = inputText,
+        onValueChange = inputTextChance,
         modifier = Modifier.fillMaxWidth().height(48.dp),
         placeholder = { Text(placeholderText, fontSize = 14.sp) },
         trailingIcon = { Box(Modifier

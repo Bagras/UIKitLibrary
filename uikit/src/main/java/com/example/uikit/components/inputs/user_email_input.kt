@@ -25,18 +25,16 @@ import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
 
 @Composable
-fun UserEmailInput(placeholderText: String) {
-    var emailInput by remember { mutableStateOf("") }
-    var emailError = if (emailInput.isNotEmpty()){
-        !android.util.Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()
+fun UserEmailInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit) {
+
+    val emailError = if (inputText.isNotEmpty()){
+        !android.util.Patterns.EMAIL_ADDRESS.matcher(inputText).matches()
     } else {
         false
     }
     OutlinedTextField(
-        value = emailInput,
-        onValueChange = {
-            emailInput = it
-        },
+        value = inputText,
+        onValueChange = inputTextChance,
         modifier = Modifier.fillMaxWidth().height(48.dp),
         placeholder = { Text(placeholderText, fontSize = 14.sp) },
         isError = emailError,
