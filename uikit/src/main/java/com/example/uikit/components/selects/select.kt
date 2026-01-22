@@ -29,6 +29,7 @@ import com.example.uikit.theme.ColorCaption
 import com.example.uikit.theme.ColorError
 import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
+import com.example.uikit.theme.CustomTypography
 
 
 @Composable
@@ -36,9 +37,9 @@ fun Select(selectInput: String, selectInputChance: (String) -> Unit, placeholder
     OutlinedTextField(
         value = selectInput,
         onValueChange = selectInputChance,
-        modifier = Modifier.fillMaxWidth().height(48.dp),
+        modifier = Modifier.fillMaxWidth().height(55.dp),
         readOnly = true,
-        placeholder = { Text(placeholderText, fontSize = 16.sp, color = ColorCaption) },
+        placeholder = { Text(placeholderText, style = CustomTypography.headline_regular, color = ColorCaption) },
         trailingIcon = {
             Icon(painter = painterResource(R.drawable.icon_chevron_down), contentDescription = null, tint = Color.Unspecified, modifier = Modifier.clickable {
 
@@ -71,5 +72,10 @@ fun Select(selectInput: String, selectInputChance: (String) -> Unit, placeholder
 @Preview
 @Composable
 private fun Preview() {
-
+    Select(
+        "",
+        {
+        },
+        "Выберите пол"
+    )
 }
