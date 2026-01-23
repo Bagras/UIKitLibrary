@@ -1,5 +1,6 @@
 package com.example.uikit.components.inputs
 
+import android.R.attr.textColor
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,6 +16,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.uikit.theme.ColorAccent
@@ -23,6 +29,15 @@ import com.example.uikit.theme.ColorCaption
 import com.example.uikit.theme.ColorError
 import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
+val TextErrorColor = SemanticsPropertyKey<Color>("TextColor")
+var SemanticsPropertyReceiver.textColor by TextErrorColor
+
+val BackgroundColorError = SemanticsPropertyKey<Color>("BackgroundColor")
+var SemanticsPropertyReceiver.backgroundColor by BackgroundColorError
+
+val BorderErrorColor = SemanticsPropertyKey<Color>("BorderColor")
+var SemanticsPropertyReceiver.borderColor by BorderErrorColor
+
 
 @Composable
 fun UserEmailInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit) {
@@ -32,10 +47,17 @@ fun UserEmailInput(placeholderText: String, inputText: String, inputTextChance: 
     } else {
         false
     }
+
+
     OutlinedTextField(
         value = inputText,
         onValueChange = inputTextChance,
-        modifier = Modifier.fillMaxWidth().height(48.dp),
+        modifier = Modifier.fillMaxWidth().height(48.dp).testTag("EmailInput").semantics{
+            BackgroundColorError
+            backgroundColor = ColorError.copy(alpha = 0.1f)
+            BorderErrorColor
+            borderColor = ColorError
+        },
         placeholder = { Text(placeholderText, fontSize = 14.sp) },
         isError = emailError,
         shape = RoundedCornerShape(10.dp),
@@ -51,13 +73,15 @@ fun UserEmailInput(placeholderText: String, inputText: String, inputTextChance: 
             errorBorderColor = ColorError,
             errorTextColor = ColorBlack,
             errorCursorColor = Color.Transparent,
-            errorContainerColor = ColorError,
+            errorContainerColor = ColorError.copy(alpha = 0.1f),
             errorPlaceholderColor = ColorCaption,
         ),
         maxLines = 1
     )
     if (emailError){
         Spacer(Modifier.height(8.dp))
-        Text("Введите свой email", fontSize = 14.sp, color = ColorError)
+        Text("Введите свой email", fontSize = 14.sp, color = ColorError, modifier = Modifier.testTag("ErrorText").semantics{
+            textColor = ColorError
+        })
     }
 }

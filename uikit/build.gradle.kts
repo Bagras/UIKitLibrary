@@ -9,7 +9,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        minSdk = 36
+        minSdk = 30
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -62,6 +62,17 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.compose.ui:ui-test-junit4:")
+
+    // Для SemanticsProperties и других инструментов тестирования
+    implementation ("androidx.compose.ui:ui-test:1.10.1")
+
+    // Для манифеста и других вспомогательных классов
+    implementation ("androidx.test:runner:1.7.0")
+    implementation ("androidx.test:rules:1.7.0")
+
+    // Для работы с правилом createComposeRule
+    implementation ("androidx.compose.ui:ui-test-manifest:1.10.1")
 
 
 }

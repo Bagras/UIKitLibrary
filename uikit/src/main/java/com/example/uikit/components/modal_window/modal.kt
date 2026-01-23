@@ -30,6 +30,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -49,29 +50,31 @@ fun ModalWindowSelect(selectInputChoice: (String) -> Unit, sheetState: ModalBott
         "Детям",
         "Аксессуары"
     )
-
-    Spacer(Modifier.height(20.dp))
-    Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
-        Text("Выберите категорию", fontSize = 28.sp, color = ColorBlack)
-    }
-    Spacer(Modifier.height(40.dp))
-    LazyColumn(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        items(selectList) {
-            Column(Modifier.fillMaxWidth().padding().clickable{
-                selectInputChoice
-                scope.launch { sheetState.hide() }
-            },
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    it,
-                    fontSize = 20.sp,
-                    color = ColorBlack,
-                    modifier = Modifier.padding(vertical = 15.dp)
-                )
-                Divider(thickness = 1.dp, color = ColorDivider)
+    Column(Modifier.fillMaxSize().testTag("BottomSheet")) {
+        Spacer(Modifier.height(20.dp))
+        Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+            Text("Выберите категорию", fontSize = 28.sp, color = ColorBlack)
+        }
+        Spacer(Modifier.height(40.dp))
+        LazyColumn(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+            items(selectList) {
+                Column(Modifier.fillMaxWidth().padding().clickable{
+                    selectInputChoice
+                    scope.launch { sheetState.hide() }
+                },
+                    horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        it,
+                        fontSize = 20.sp,
+                        color = ColorBlack,
+                        modifier = Modifier.padding(vertical = 15.dp)
+                    )
+                    Divider(thickness = 1.dp, color = ColorDivider)
+                }
             }
         }
     }
+
 }
 
 
