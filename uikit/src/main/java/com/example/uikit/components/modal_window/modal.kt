@@ -50,18 +50,27 @@ fun ModalWindowSelect(selectInputChoice: (String) -> Unit, sheetState: ModalBott
         "Детям",
         "Аксессуары"
     )
-    Column(Modifier.fillMaxSize().testTag("BottomSheet")) {
+    Column(Modifier
+        .fillMaxSize()
+        .testTag("BottomSheet")) {
         Spacer(Modifier.height(20.dp))
         Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
-            Text("Выберите категорию", fontSize = 28.sp, color = ColorBlack)
+            Text(
+                "Выберите категорию",
+                fontSize = 28.sp,
+                color = ColorBlack
+            )
         }
         Spacer(Modifier.height(40.dp))
         LazyColumn(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
             items(selectList) {
-                Column(Modifier.fillMaxWidth().padding().clickable{
-                    selectInputChoice
-                    scope.launch { sheetState.hide() }
-                },
+                Column(Modifier
+                    .fillMaxWidth()
+                    .padding()
+                    .clickable {
+                        selectInputChoice
+                        scope.launch { sheetState.hide() }
+                    },
                     horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         it,

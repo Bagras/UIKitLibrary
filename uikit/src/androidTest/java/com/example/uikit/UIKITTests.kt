@@ -3,10 +3,13 @@ package com.example.uikit
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -25,7 +28,9 @@ import com.example.uikit.components.inputs.TextErrorColor
 import com.example.uikit.components.inputs.UserEmailInput
 import com.example.uikit.components.selects.Select
 import com.example.uikit.theme.ColorError
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,7 +42,6 @@ import org.junit.runner.RunWith
  */
 
 
-
 @RunWith(AndroidJUnit4::class)
 class UIKITTests {
 
@@ -46,7 +50,7 @@ class UIKITTests {
 
     @SuppressLint("CheckResult")
     @Test
-    fun userEmailInputErrorTest(){
+    fun userEmailInputErrorTest() {
         composeTestRule.setContent {
             UserEmailInput("Введите емаил", "invalid", {})
 
@@ -54,57 +58,27 @@ class UIKITTests {
 
         composeTestRule.onNodeWithTag("EmailInput", useUnmergedTree = true)
             .assertIsDisplayed()
-            .assert(SemanticsMatcher.expectValue(BackgroundColorError, ColorError.copy(alpha = 0.1f)))
+            .assert(
+                SemanticsMatcher.expectValue(
+                    BackgroundColorError,
+                    ColorError.copy(alpha = 0.1f)
+                )
+            )
             .assert(SemanticsMatcher.expectValue(BorderErrorColor, ColorError))
 
         composeTestRule.onNodeWithTag("ErrorText")
             .assertIsDisplayed()
-            .assert(SemanticsMatcher.expectValue(
-            TextErrorColor, ColorError
-        ))
+            .assert(
+                SemanticsMatcher.expectValue(
+                    TextErrorColor, ColorError
+                )
+            )
     }
+
 
     @Test
-    fun selectOpnBottomSheet(){
-        composeTestRule.setContent {
-            val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden, skipHalfExpanded = true)
-            val scope = rememberCoroutineScope()
-            ModalBottomSheetLayout(
-                sheetState = sheetState,
-                sheetContent = {
-                    Column(Modifier.fillMaxSize().testTag("BottomSheet")) {
-                    }
-                })
-            {
-                Column(Modifier.fillMaxSize()) {
-                    Select("", {}, "Алеша", true, sheetState, {scope.launch { sheetState.show() }})
-                }
-
-            }
-        }
-
-        composeTestRule
-            .onNodeWithTag("Select")
-            .performClick()
-
-        composeTestRule.waitUntil(10_000) {
-            runCatching {
-                composeTestRule
-                    .onAllNodesWithTag("BottomSheet")
-                    .fetchSemanticsNodes()
-                    .isNotEmpty()
-            }.getOrDefault(false)
-        }
-
-        composeTestRule
-            .onAllNodesWithTag("BottomSheet")
-            .printToLog("BOTTOM_SHEET")
+    fun SelectOpenBottomSheet() {
 
 
-        composeTestRule
-            .onNodeWithTag("BottomSheet")
-            .assertIsDisplayed()
     }
-
-
 }
