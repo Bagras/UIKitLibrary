@@ -68,7 +68,7 @@ fun Select(
     sheetState: ModalBottomSheetState,
     bottomSheetText: String,
     placeholderTextChange: Boolean,
-    itTest: Boolean = false
+    isTest: Boolean = false
 ) {
 
     val placeholderText = "Выберите кому"
@@ -77,7 +77,13 @@ fun Select(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(55.dp),
+            .height(55.dp)
+            .clickable {
+                if (isTest) {
+                    scope.launch { sheetState.show() }
+                }
+            }
+            .testTag("Select"),
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(
             containerColor = ColorInputBG,
@@ -85,26 +91,37 @@ fun Select(
         border = BorderStroke(1.dp, ColorInputStroke)
     ) {
         Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Box(Modifier
-                .fillMaxHeight()
-                .padding(start = 14.dp), contentAlignment = Alignment.Center) {
+            Box(
+                Modifier
+                    .fillMaxHeight()
+                    .padding(start = 14.dp), contentAlignment = Alignment.Center
+            ) {
                 androidx.compose.material3.Text(
                     if (placeholderTextChange) placeholderText else bottomSheetText,
                     style = CustomTypography.headline_regular,
                     color = if (placeholderTextChange) ColorCaption else ColorBlack
                 )
             }
-            Box(Modifier
-                .fillMaxHeight()
-                .padding(end = 14.dp),
-                contentAlignment = Alignment.CenterEnd){
-                Icon(painter = painterResource(R.drawable.icon_chevron_down), contentDescription = null, tint = Color.Unspecified, modifier = Modifier.clickable{
-                    scope.launch { sheetState.show() }
-                })
+            Box(
+                Modifier
+                    .fillMaxHeight()
+                    .padding(end = 14.dp),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                if (isTest) {
+
+                } else {
+                    Icon(
+                        painter = painterResource(R.drawable.icon_chevron_down),
+                        contentDescription = null,
+                        tint = Color.Unspecified,
+                        modifier = Modifier.clickable {
+                            scope.launch { sheetState.show() }
+                        }
+                    )
+                }
             }
         }
-
-
     }
 }
 
@@ -115,5 +132,5 @@ fun Select(
 @Preview
 @Composable
 private fun Preview() {
-
+    Select(rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden), "", true, true)
 }

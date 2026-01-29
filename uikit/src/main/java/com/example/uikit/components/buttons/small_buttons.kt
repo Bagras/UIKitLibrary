@@ -13,12 +13,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.uikit.theme.ColorAccent
 import com.example.uikit.theme.ColorWhite
+val buttonBackgroundColorAdd = SemanticsPropertyKey<Color>("backgroundColorAdd")
+var SemanticsPropertyReceiver.backgroundColorAdd by buttonBackgroundColorAdd
 
+val buttonContentColorAdd = SemanticsPropertyKey<Color>("contentColorAdd")
+var SemanticsPropertyReceiver.contentColorAdd by buttonContentColorAdd
+
+val buttonBackgroundColorDelete = SemanticsPropertyKey<Color>("backgroundColorDelete")
+var SemanticsPropertyReceiver.backgroundColorDelete by buttonBackgroundColorDelete
+
+val buttonContentColorDelete = SemanticsPropertyKey<Color>("contentColorDelete")
+var SemanticsPropertyReceiver.contentColorDelete by buttonContentColorDelete
+
+val buttonTextAdd = SemanticsPropertyKey<String>("textAdd")
+var SemanticsPropertyReceiver.textAdd by buttonTextAdd
+
+val buttonTextDelete = SemanticsPropertyKey<String>("textDelete")
+var SemanticsPropertyReceiver.textDelete by buttonTextDelete
 @Composable
 fun SmallButtons(modifier: Modifier = Modifier) {
     var buttonClick by remember { mutableStateOf(true) }
@@ -28,7 +49,27 @@ fun SmallButtons(modifier: Modifier = Modifier) {
         },
         modifier = Modifier
             .height(48.dp)
-            .width(105.dp),
+            .width(105.dp)
+            .testTag("PrimaryButton")
+            .semantics{
+                buttonBackgroundColorAdd
+                backgroundColorAdd = ColorAccent
+
+                buttonBackgroundColorDelete
+                backgroundColorDelete = ColorWhite
+
+                buttonContentColorAdd
+                contentColorAdd = ColorWhite
+
+                buttonContentColorDelete
+                contentColorDelete = ColorAccent
+
+                buttonTextAdd
+                textAdd = "Добавить"
+
+                buttonTextDelete
+                textDelete = "Убрать"
+            },
         colors = if (buttonClick) {
             ButtonDefaults.buttonColors(
                 contentColor = ColorWhite,

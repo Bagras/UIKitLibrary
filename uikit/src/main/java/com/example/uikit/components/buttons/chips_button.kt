@@ -18,12 +18,27 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.uikit.theme.ColorAccent
 import com.example.uikit.theme.ColorDescription
 import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorWhite
+
+val chipBackgroundColorOn = SemanticsPropertyKey<Color>("BackgroundColorOn")
+var SemanticsPropertyReceiver.backgroundColorOn by chipBackgroundColorOn
+
+val chipBackgroundColorOff = SemanticsPropertyKey<Color>("BackgroundColorOff")
+var SemanticsPropertyReceiver.backgroundColorOff by chipBackgroundColorOff
+
+val chipContentColorOn = SemanticsPropertyKey<Color>("ContentColorOn")
+var SemanticsPropertyReceiver.contentColorOn by chipContentColorOn
+
+val chipContentColorOff = SemanticsPropertyKey<Color>("ContentColorOff")
+var SemanticsPropertyReceiver.contentColorOff by chipContentColorOff
 
 @Composable
 fun ChipsButton(index: Int, item: String, groupList: MutableList<String>) {
@@ -34,6 +49,19 @@ fun ChipsButton(index: Int, item: String, groupList: MutableList<String>) {
             .padding(end = 16.dp)
             .clickable {
                 groupChoiceNum = index
+            }
+            .semantics{
+                chipBackgroundColorOn
+                backgroundColorOn = ColorAccent
+
+                chipBackgroundColorOff
+                backgroundColorOff = ColorInputBG
+
+                chipContentColorOn
+                contentColorOn = ColorWhite
+
+                chipContentColorOff
+                contentColorOff = ColorDescription
             },
         colors = ButtonDefaults.buttonColors(
             contentColor = if (groupChoiceNum == index) Color.White else ColorDescription,

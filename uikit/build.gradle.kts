@@ -79,6 +79,7 @@ dependencies {
 
     // Для работы с правилом createComposeRule
     debugImplementation ("androidx.compose.ui:ui-test-manifest:1.10.1")
+    testImplementation(kotlin("test"))
 
 
 }

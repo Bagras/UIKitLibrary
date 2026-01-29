@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,7 +29,7 @@ import com.example.uikit.theme.ColorInputIcon
 import com.google.android.material.snackbar.BaseTransientBottomBar
 
 @Composable
-fun Tabbar(destinationNumber: Int, navController: NavController) {
+fun Tabbar(destinationNumber: Int, navController: NavController, isTest: Boolean = false) {
     var selectedDestination by remember { mutableIntStateOf(destinationNumber) }
     NavigationBar(
         windowInsets = NavigationBarDefaults.windowInsets,
@@ -38,13 +39,13 @@ fun Tabbar(destinationNumber: Int, navController: NavController) {
             NavigationBarItem(
                 selected = selectedDestination == index,
                 onClick = {
-                    navController.navigate(route = destination.route)
-                    selectedDestination = destinationNumber
+                    if (isTest) null else navController.navigate(route = destination.route)
+                    selectedDestination = if (isTest) index else destinationNumber
                 },
                 icon = {
                     Icon(
                         painter = painterResource(destination.icon),
-                        contentDescription = null,
+                        contentDescription = destination.contentDescription,
                         modifier = Modifier.size(24.dp)
                     )
                 },
@@ -57,7 +58,9 @@ fun Tabbar(destinationNumber: Int, navController: NavController) {
                     unselectedTextColor = ColorInputIcon,
                     disabledIconColor = Color.Transparent,
                     disabledTextColor = Color.Transparent
-                )
+                ),
+                modifier = Modifier.testTag("tab_$index")
+
             )
         }
     }
