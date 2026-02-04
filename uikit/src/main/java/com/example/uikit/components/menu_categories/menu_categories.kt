@@ -16,7 +16,7 @@ fun GroupDescription(modifier: Modifier = Modifier) {
     Column(Modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth()) {
             groupList.forEachIndexed { index, item ->
-                ChipsButton(index = index, item = item, groupList = groupList)
+                ChipsButton(index = index, item = item, buttonClick = {})
             }
         }
     }

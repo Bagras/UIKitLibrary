@@ -30,10 +30,10 @@ import com.example.uikit.theme.ColorAccentInactive
 import com.example.uikit.theme.ColorWhite
 
 @Composable
-fun CartButton(price: Int) {
+fun CartButton(price: Int, buttonClick: () -> Unit) {
     var buttonEnabled by remember { mutableStateOf(true) }
     Button(onClick = {
-
+    buttonClick
     },
         modifier = Modifier
             .fillMaxWidth()

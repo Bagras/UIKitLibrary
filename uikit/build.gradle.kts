@@ -7,9 +7,6 @@ plugins {
 
 }
 
-configurations.maybeCreate("default")
-artifacts.add("default", file("uikit-debug.aar"))
-
 android {
     namespace = "com.example.uikit"
     compileSdk = 36
@@ -55,10 +52,10 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation("androidx.navigation:navigation-compose:2.9.6")
+    implementation("androidx.navigation:navigation-compose:2.9.7")
     implementation(libs.androidx.compose.bom)
-    implementation("androidx.compose.ui:ui:1.10.1")
-    implementation("androidx.compose.material:material:1.10.1")
+    implementation("androidx.compose.ui:ui:1.10.2")
+    implementation("androidx.compose.material:material:1.10.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -71,14 +68,14 @@ dependencies {
     implementation("androidx.compose.ui:ui-test-junit4:")
 
     // Для SemanticsProperties и других инструментов тестирования
-    implementation ("androidx.compose.ui:ui-test:1.10.1")
+    implementation ("androidx.compose.ui:ui-test:1.10.2")
 
     // Для манифеста и других вспомогательных классов
     implementation ("androidx.test:runner:1.7.0")
     implementation ("androidx.test:rules:1.7.0")
 
     // Для работы с правилом createComposeRule
-    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.10.1")
+    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.10.2")
     testImplementation(kotlin("test"))
 
 

@@ -51,12 +51,6 @@ import java.util.UUID
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun CustomSnackBar(modifier: Modifier = Modifier, message: String) {
-    Column(
-        Modifier
-            .fillMaxSize()
-            .padding(horizontal = 20.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
         Box(Modifier
             .fillMaxWidth()
             .height(130.dp),
@@ -104,7 +98,6 @@ fun CustomSnackBar(modifier: Modifier = Modifier, message: String) {
         }
 
     }
-}
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")

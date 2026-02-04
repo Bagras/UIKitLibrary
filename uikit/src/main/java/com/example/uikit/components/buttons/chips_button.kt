@@ -41,10 +41,12 @@ val chipContentColorOff = SemanticsPropertyKey<Color>("ContentColorOff")
 var SemanticsPropertyReceiver.contentColorOff by chipContentColorOff
 
 @Composable
-fun ChipsButton(index: Int, item: String, groupList: MutableList<String>) {
+fun ChipsButton(index: Int, item: String, buttonClick: () -> Unit) {
     var groupChoiceNum by remember { mutableIntStateOf(0) }
     Button(
-        onClick = {},
+        onClick = {
+            buttonClick
+        },
         modifier = Modifier
             .padding(end = 16.dp)
             .clickable {

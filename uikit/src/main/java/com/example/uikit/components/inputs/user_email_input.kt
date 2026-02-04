@@ -29,6 +29,8 @@ import com.example.uikit.theme.ColorCaption
 import com.example.uikit.theme.ColorError
 import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
+import com.example.uikit.theme.CustomTypography
+
 val TextErrorColor = SemanticsPropertyKey<Color>("TextColor")
 var SemanticsPropertyReceiver.textColor by TextErrorColor
 
@@ -40,7 +42,7 @@ var SemanticsPropertyReceiver.borderColor by BorderErrorColor
 
 
 @Composable
-fun UserEmailInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit) {
+fun UserEmailInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit, titleText: String) {
 
     val emailError = if (inputText.isNotEmpty()){
         !android.util.Patterns.EMAIL_ADDRESS.matcher(inputText).matches()
@@ -48,7 +50,8 @@ fun UserEmailInput(placeholderText: String, inputText: String, inputTextChance: 
         false
     }
 
-
+    Text(titleText, style = CustomTypography.caption_regular, color = ColorCaption)
+    Spacer(Modifier.height(4.dp))
     OutlinedTextField(
         value = inputText,
         onValueChange = inputTextChance,

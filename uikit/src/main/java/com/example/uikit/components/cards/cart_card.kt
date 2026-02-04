@@ -22,6 +22,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,10 +41,12 @@ import com.example.uikit.theme.ColorDivider
 import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
 import com.example.uikit.theme.ColorWhite
+import com.example.uikit.theme.CustomTypography
 
 @Composable
-fun CartCard() {
+fun CartCard(title: String, price: Int, quantity: Int, cartDeleteButton: () -> Unit) {
 
+    var quantityChange by remember { mutableIntStateOf(quantity) }
     Card(
         modifier = Modifier
             .height(138.dp)
@@ -53,10 +60,11 @@ fun CartCard() {
             .fillMaxSize()
             .padding(all = 16.dp)) {
             Text(
-                "Рубашка Воскресенье для машинного вязания",
-                fontSize = 16.sp,
+                title,
+                style = CustomTypography.headline_medium,
                 color = ColorBlack,
                 modifier = Modifier.padding(end = 60.dp)
+
             )
             Box(
                 Modifier
@@ -65,7 +73,7 @@ fun CartCard() {
                 contentAlignment = Alignment.BottomStart
             ) {
                 Text(
-                    "300 ₽",
+                    "$price ₽",
                     fontSize = 17.sp,
                     color = ColorBlack,
                 )
@@ -83,8 +91,8 @@ fun CartCard() {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("1 штук", fontSize = 15.sp, color = ColorBlack)
-                    Counter()
+                    Text("$quantity штук", fontSize = 15.sp, color = ColorBlack)
+                    Counter(updateQuantityPlus = {++quantityChange}, updateQuantityMinus = {--quantityChange})
                 }
             }
             Box(
@@ -96,6 +104,8 @@ fun CartCard() {
                     contentDescription = null,
                     tint = Color.Unspecified,
                     modifier = Modifier.clickable {
+                        cartDeleteButton
+
                     })
             }
 
@@ -110,5 +120,5 @@ fun CartCard() {
 @Preview
 @Composable
 private fun Aaaaa() {
-    CartCard()
+    CartCard("Рубашка Воскресенье для машинного вязания", 300, 1, {})
 }

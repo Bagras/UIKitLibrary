@@ -1,6 +1,7 @@
 package com.example.uikit.components.headers
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,7 +30,7 @@ import com.example.uikit.theme.ColorBlack
 import com.example.uikit.theme.ColorWhite
 
 @Composable
-fun Header1(modifier: Modifier = Modifier) {
+fun Header1(clearCartButton: () -> Unit) {
     Box(
         Modifier
             .fillMaxWidth()
@@ -50,7 +51,10 @@ fun Header1(modifier: Modifier = Modifier) {
             Icon(
                 painter = painterResource(R.drawable.icon_delete),
                 contentDescription = null,
-                tint = Color.Unspecified
+                tint = Color.Unspecified,
+                modifier = Modifier.clickable{
+                    clearCartButton
+                }
             )
         }
         Box(
@@ -65,7 +69,7 @@ fun Header1(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun Header2(modifier: Modifier = Modifier) {
+fun Header2(clearCartButton: () -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -87,7 +91,10 @@ fun Header2(modifier: Modifier = Modifier) {
             Icon(
                 painter = painterResource(R.drawable.icon_delete),
                 contentDescription = null,
-                tint = Color.Unspecified
+                tint = Color.Unspecified,
+                modifier = Modifier.clickable{
+                    clearCartButton
+                }
             )
         }
     }
@@ -97,5 +104,5 @@ fun Header2(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun Preview() {
-    Header2()
+    Header2 {}
 }

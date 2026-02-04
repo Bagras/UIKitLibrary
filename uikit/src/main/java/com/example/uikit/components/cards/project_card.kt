@@ -33,7 +33,7 @@ import com.example.uikit.theme.ColorDivider
 import com.example.uikit.theme.ColorWhite
 
 @Composable
-fun ProjectCard(modifier: Modifier = Modifier) {
+fun ProjectCard(title: String, pastDayNum: Int) {
     Column(Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
         Card(
             modifier = Modifier
@@ -48,15 +48,15 @@ fun ProjectCard(modifier: Modifier = Modifier) {
                 .fillMaxSize()
                 .padding(all = 16.dp)) {
                 Box(Modifier.fillMaxSize()){
-                    Text("Мой первый проект", fontSize = 16.sp, color = ColorBlack)
+                    Text(title, fontSize = 16.sp, color = ColorBlack)
                 }
                 Box(Modifier.fillMaxSize(),
                     contentAlignment = Alignment.BottomStart){
-                    Text("Прошло 2 дня", fontSize = 14.sp, color = ColorCaption)
+                    Text("Прошло $pastDayNum дня", fontSize = 14.sp, color = ColorCaption)
                 }
                 Box(Modifier.fillMaxSize(),
                     contentAlignment = Alignment.BottomEnd){
-                    SmallButtons()
+                    SmallButtons{}
                 }
             }
         }
@@ -67,5 +67,5 @@ fun ProjectCard(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun Aaaaa() {
-    ProjectCard()
+    ProjectCard("Мой первый проект", 2)
 }

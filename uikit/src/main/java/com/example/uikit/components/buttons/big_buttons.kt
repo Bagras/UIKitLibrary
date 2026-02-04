@@ -19,10 +19,10 @@ import com.example.uikit.theme.ColorAccentInactive
 import com.example.uikit.theme.ColorWhite
 
 @Composable
-fun BigButtons(buttonText: String) {
+fun BigButtons(buttonText: String, buttonClick: () -> Unit) {
     var buttonEnabled by remember { mutableStateOf(true) }
     Button(onClick = {
-
+    buttonClick
     },
         modifier = Modifier
             .fillMaxWidth()

@@ -41,11 +41,12 @@ var SemanticsPropertyReceiver.textAdd by buttonTextAdd
 val buttonTextDelete = SemanticsPropertyKey<String>("textDelete")
 var SemanticsPropertyReceiver.textDelete by buttonTextDelete
 @Composable
-fun SmallButtons(modifier: Modifier = Modifier) {
+fun SmallButtons(buttonClickable: () -> Unit) {
     var buttonClick by remember { mutableStateOf(true) }
     Button(
         onClick = {
-        buttonClick = !buttonClick
+            buttonClickable
+            buttonClick = !buttonClick
         },
         modifier = Modifier
             .height(48.dp)
@@ -91,10 +92,4 @@ fun SmallButtons(modifier: Modifier = Modifier) {
         }
 
     }
-}
-
-@Preview
-@Composable
-private fun Aaaaa() {
-    SmallButtons()
 }

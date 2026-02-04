@@ -48,7 +48,7 @@ fun PrimaryCard(cardName: String, cardCategories: String, cardPrice: Int, sheetS
            .fillMaxSize()
            .padding(16.dp)){
            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd){
-               SmallButtons()
+               SmallButtons({})
            }
            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopStart){
                Text(cardName, style = CustomTypography.headline_medium, modifier = Modifier.clickable{

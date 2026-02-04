@@ -2,6 +2,7 @@ package com.example.uikit.components.inputs
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -30,10 +31,14 @@ import com.example.uikit.theme.ColorCaption
 import com.example.uikit.theme.ColorError
 import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
+import com.example.uikit.theme.CustomTypography
 
 @Composable
-fun UserPasswordInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit) {
+fun UserPasswordInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit, titleText: String) {
     var passwordVisual by remember { mutableStateOf(true) }
+
+    Text(titleText, style = CustomTypography.caption_regular, color = ColorCaption)
+    Spacer(Modifier.height(4.dp))
     OutlinedTextField(
         value = inputText,
         onValueChange = inputTextChance,
