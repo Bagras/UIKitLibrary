@@ -28,6 +28,7 @@ import com.example.uikit.R
 import com.example.uikit.theme.ColorAccent
 import com.example.uikit.theme.ColorBlack
 import com.example.uikit.theme.ColorCaption
+import com.example.uikit.theme.ColorDescription
 import com.example.uikit.theme.ColorError
 import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
@@ -37,13 +38,13 @@ import com.example.uikit.theme.CustomTypography
 fun UserPasswordInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit, titleText: String) {
     var passwordVisual by remember { mutableStateOf(true) }
 
-    Text(titleText, style = CustomTypography.caption_regular, color = ColorCaption)
+    Text(titleText, style = CustomTypography.caption_regular, color = ColorDescription)
     Spacer(Modifier.height(4.dp))
     OutlinedTextField(
         value = inputText,
         onValueChange = inputTextChance,
         modifier = Modifier.fillMaxWidth().height(48.dp),
-        placeholder = { Text(placeholderText, fontSize = 14.sp) },
+        placeholder = { Text(placeholderText, color = ColorCaption) },
         trailingIcon = { Box(Modifier
             .size(20.dp)
             .clickable {
@@ -77,4 +78,5 @@ fun UserPasswordInput(placeholderText: String, inputText: String, inputTextChanc
             errorPlaceholderColor = ColorCaption,
         ),
     )
+    Spacer(Modifier.height(16.dp))
 }

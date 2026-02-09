@@ -1,8 +1,6 @@
 package com.example.uikit.components.inputs
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +13,6 @@ import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,7 +28,6 @@ import com.example.uikit.theme.ColorAccent
 import com.example.uikit.theme.ColorBlack
 import com.example.uikit.theme.ColorCaption
 import com.example.uikit.theme.ColorInputBG
-import com.example.uikit.theme.ColorInputStroke
 import com.example.uikit.theme.ColorWhite
 
 
@@ -39,15 +35,15 @@ import com.example.uikit.theme.ColorWhite
 @Composable
 fun SearchInput(searchText: String, searchTextChange: (String) -> Unit) {
 
-    var expanted by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
     SearchBar(
         inputField = {
             SearchBarDefaults.InputField(
                 query = searchText,
                 onQueryChange = searchTextChange,
                 onSearch = {},
-                expanded = expanted,
-                onExpandedChange = { expanted = it },
+                expanded = expanded,
+                onExpandedChange = { expanded = it },
                 colors = TextFieldDefaults.colors(
                     focusedTextColor = ColorBlack,
                     focusedContainerColor = ColorInputBG,
@@ -61,27 +57,29 @@ fun SearchInput(searchText: String, searchTextChange: (String) -> Unit) {
                     unfocusedLeadingIconColor = Color.Unspecified,
                     unfocusedTrailingIconColor = Color.Unspecified,
                 ),
-                placeholder = { Text("Искать описание", fontSize = 16.sp) },
+                placeholder = { Text("Искать описание", color = ColorCaption) },
                 trailingIcon = {
-                    if (expanted) Icon(
+                    if (expanded) Icon(
                         painter = painterResource(R.drawable.icon_close),
                         contentDescription = null,
                         modifier = Modifier.clickable {
-                            expanted = false
-                        })
+                            expanded = false
+                        },
+                        tint = Color.Unspecified)
                 },
                 leadingIcon = {
                     Icon(
                         painter = painterResource(R.drawable.icon_search),
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = Color.Unspecified
                     )
                 },
 
                 )
         },
-        expanded = expanted,
+        expanded = expanded,
         onExpandedChange = {
-            expanted = it
+            expanded = it
         },
         modifier = Modifier.fillMaxWidth(),
         colors = SearchBarDefaults.colors(
@@ -95,22 +93,3 @@ fun SearchInput(searchText: String, searchTextChange: (String) -> Unit) {
     }
 }
 
-@Composable
-fun Test(modifier: Modifier = Modifier) {
-    var searchText by remember { mutableStateOf("") }
-    Column(Modifier
-        .fillMaxSize()
-        .background(ColorWhite)) {
-        SearchInput(searchText = searchText, searchTextChange = {
-            searchText = it
-        })
-    }
-
-}
-
-
-@Preview
-@Composable
-private fun Prev() {
-    Test()
-}

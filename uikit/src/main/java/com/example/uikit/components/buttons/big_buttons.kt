@@ -22,7 +22,7 @@ import com.example.uikit.theme.ColorWhite
 fun BigButtons(buttonText: String, buttonClick: () -> Unit) {
     var buttonEnabled by remember { mutableStateOf(true) }
     Button(onClick = {
-    buttonClick
+    buttonClick()
     },
         modifier = Modifier
             .fillMaxWidth()

@@ -23,22 +23,28 @@ import androidx.compose.ui.unit.sp
 import com.example.uikit.theme.ColorAccent
 import com.example.uikit.theme.ColorBlack
 import com.example.uikit.theme.ColorCaption
+import com.example.uikit.theme.ColorDescription
 import com.example.uikit.theme.ColorError
 import com.example.uikit.theme.ColorInputBG
 import com.example.uikit.theme.ColorInputStroke
 import com.example.uikit.theme.CustomTypography
 
 @Composable
-fun UserDateInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit, titleText: String) {
+fun UserDateInput(placeholderText: String, inputText: String, inputTextChance: (String) -> Unit, titleText: String, isRegister: Boolean = false) {
 
-    Text(titleText, style = CustomTypography.caption_regular, color = ColorCaption)
-    Spacer(Modifier.height(4.dp))
+    if (isRegister){
+        null
+    } else{
+        Text(titleText, style = CustomTypography.caption_regular, color = ColorDescription)
+        Spacer(Modifier.height(4.dp))
+    }
+
     OutlinedTextField(
         value = inputText,
         onValueChange = inputTextChance,
         modifier = Modifier.fillMaxWidth().height(48.dp),
-        placeholder = { Text(placeholderText, fontSize = 14.sp) },
-        label = {Text("--.--.----", fontSize = 14.sp)},
+        placeholder = { Text(placeholderText, color = ColorCaption) },
+        label = {Text("--.--.----", color = ColorCaption)},
         visualTransformation = DateTransformation(),
         maxLines = 1,
         shape = RoundedCornerShape(10.dp),
@@ -61,6 +67,7 @@ fun UserDateInput(placeholderText: String, inputText: String, inputTextChance: (
             errorLabelColor = ColorCaption
         ),
     )
+    Spacer(Modifier.height(16.dp))
 }
 
 class DateTransformation() : VisualTransformation {

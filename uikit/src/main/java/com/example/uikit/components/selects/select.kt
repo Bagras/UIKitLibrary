@@ -53,6 +53,7 @@ import com.example.uikit.R
 import com.example.uikit.theme.ColorAccent
 import com.example.uikit.theme.ColorBlack
 import com.example.uikit.theme.ColorCaption
+import com.example.uikit.theme.ColorDescription
 import com.example.uikit.theme.ColorDivider
 import com.example.uikit.theme.ColorError
 import com.example.uikit.theme.ColorInputBG
@@ -67,21 +68,24 @@ import kotlinx.coroutines.launch
 fun Select(
     sheetState: ModalBottomSheetState,
     bottomSheetText: String,
-    placeholderTextChange: Boolean,
+    placeholderText: String,
+    isRegister: Boolean,
+    title: String,
     isTest: Boolean = false
 ) {
 
-    val placeholderText = "Выберите кому"
     val scope = rememberCoroutineScope()
-
+    if (isRegister){
+        null
+    } else {
+        Text(title, style = CustomTypography.caption_regular, color = ColorDescription)
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(55.dp)
+            .height(48.dp)
             .clickable {
-                if (isTest) {
-                    scope.launch { sheetState.show() }
-                }
+                scope.launch { sheetState.show() }
             }
             .testTag("Select"),
         shape = RoundedCornerShape(10.dp),
@@ -96,10 +100,9 @@ fun Select(
                     .fillMaxHeight()
                     .padding(start = 14.dp), contentAlignment = Alignment.Center
             ) {
-                androidx.compose.material3.Text(
-                    if (placeholderTextChange) placeholderText else bottomSheetText,
-                    style = CustomTypography.headline_regular,
-                    color = if (placeholderTextChange) ColorCaption else ColorBlack
+                Text(
+                    if (bottomSheetText.isEmpty()) placeholderText else bottomSheetText,
+                    color = if (bottomSheetText.isEmpty()) ColorCaption else ColorBlack
                 )
             }
             Box(
@@ -123,14 +126,9 @@ fun Select(
             }
         }
     }
+    Spacer(Modifier.height(16.dp))
 }
 
 
 
 
-
-@Preview
-@Composable
-private fun Preview() {
-    Select(rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden), "", true, true)
-}

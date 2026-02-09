@@ -42,14 +42,8 @@ import com.example.uikit.theme.ColorDivider
 import kotlinx.coroutines.launch
 
 @Composable
-fun ModalWindowSelect(selectInputChoice: (String) -> Unit, sheetState: ModalBottomSheetState) {
+fun ModalWindowSelect(selectInputChoice: (String) -> Unit, sheetState: ModalBottomSheetState, selectList: List<String>) {
     val scope = rememberCoroutineScope()
-    val selectList = mutableListOf<String>(
-        "Мужчинам",
-        "Женщинам",
-        "Детям",
-        "Аксессуары"
-    )
     Column(Modifier
         .fillMaxSize()
         .testTag("BottomSheet")) {
@@ -68,7 +62,7 @@ fun ModalWindowSelect(selectInputChoice: (String) -> Unit, sheetState: ModalBott
                     .fillMaxWidth()
                     .padding()
                     .clickable {
-                        selectInputChoice
+                        selectInputChoice(it)
                         scope.launch { sheetState.hide() }
                     },
                     horizontalAlignment = Alignment.CenterHorizontally) {
@@ -90,13 +84,13 @@ fun ModalWindowSelect(selectInputChoice: (String) -> Unit, sheetState: ModalBott
 @SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ModalBottomSheetFun(modifier: Modifier = Modifier, showModalSheet: MutableState<Boolean>, sheetState: ModalBottomSheetState) {
+fun ModalBottomSheetFun(sheetState: ModalBottomSheetState, title: String, description: String, approximateCost: Float?, price: Float) {
     val scope = rememberCoroutineScope()
     Column(Modifier.padding(horizontal = 20.dp, vertical = 24.dp)) {
         Row(Modifier.fillMaxWidth()) {
             Box(Modifier.width(267.dp)){
                 Text(
-                    "Рубашка Воскресенье для машинного вязанья",
+                    title,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -104,10 +98,9 @@ fun ModalBottomSheetFun(modifier: Modifier = Modifier, showModalSheet: MutableSt
             Box(Modifier
                 .fillMaxWidth()
                 .height(32.dp), contentAlignment = Alignment.CenterEnd){
-                Card(modifier
+                Card(Modifier
                     .size(32.dp)
                     .clickable {
-                        showModalSheet.value = !showModalSheet.value
                         scope.launch {
                             sheetState.hide()
                         }
@@ -130,12 +123,7 @@ fun ModalBottomSheetFun(modifier: Modifier = Modifier, showModalSheet: MutableSt
                 fontWeight = FontWeight.Medium
             )
             Spacer(Modifier.height(8.dp))
-            Text(
-                "Мой выбор для этих шапок – кардные составы, которые раскрываются деликатным пушком. Кашемиры, мериносы, смесовки с ними отлично подойдут на шапку.\n" +
-                        "Кардные составы берите в большое количество сложений, вязать будем резинку 1х1, плотненько.\n" +
-                        "Пряжу 1400-1500м в 100г в 4 сложения, пряжу 700м в 2 сложения. Ориентир для конечной толщины – 300-350м в 100г.\n" +
-                        "Артикулы, из которых мы вязали эту модель: Zermatt Zegna Baruffa, Cashfive, Baby Cashmere Loro Piana, Soft Donegal и другие.\n" +
-                        "Примерный расход на шапку с подгибом 70-90г.", fontSize = 15.sp
+            Text(description, fontSize = 15.sp
             )
 
 
@@ -150,7 +138,7 @@ fun ModalBottomSheetFun(modifier: Modifier = Modifier, showModalSheet: MutableSt
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                "80-90 г",
+                "$approximateCost г",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium
             )
@@ -159,14 +147,14 @@ fun ModalBottomSheetFun(modifier: Modifier = Modifier, showModalSheet: MutableSt
         Button(onClick = {
 
         },
-            modifier
+            Modifier
                 .fillMaxWidth()
                 .height(56.dp),
             colors = ButtonDefaults.buttonColors(ColorAccent),
             shape = RoundedCornerShape(10.dp)
         ) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
-                Text("Добавить за 690 ₽")
+                Text("Добавить за $price ₽")
             }
         }
     }
