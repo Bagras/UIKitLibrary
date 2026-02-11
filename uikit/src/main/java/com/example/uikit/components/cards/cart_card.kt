@@ -44,7 +44,7 @@ import com.example.uikit.theme.ColorWhite
 import com.example.uikit.theme.CustomTypography
 
 @Composable
-fun CartCard(title: String, price: Int, quantity: Int, cartDeleteButton: () -> Unit) {
+fun CartCard(title: String, price: Int, quantity: Int, cartDeleteButton: () -> Unit, ) {
 
     var quantityChange by remember { mutableIntStateOf(quantity) }
     Card(
@@ -92,7 +92,7 @@ fun CartCard(title: String, price: Int, quantity: Int, cartDeleteButton: () -> U
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("$quantity штук", fontSize = 15.sp, color = ColorBlack)
-                    Counter(updateQuantityPlus = {++quantityChange}, updateQuantityMinus = {--quantityChange})
+                    Counter(updateQuantityPlus = {++quantityChange}, updateQuantityMinus = {--quantityChange}, quantity = quantity)
                 }
             }
             Box(

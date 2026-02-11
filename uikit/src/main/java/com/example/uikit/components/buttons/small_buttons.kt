@@ -45,7 +45,7 @@ fun SmallButtons(buttonClickable: () -> Unit) {
     var buttonClick by remember { mutableStateOf(true) }
     Button(
         onClick = {
-            buttonClickable
+            buttonClickable()
             buttonClick = !buttonClick
         },
         modifier = Modifier

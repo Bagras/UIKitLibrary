@@ -11,11 +11,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.uikit.components.buttons.ChipsButton
 
 @Composable
-fun GroupDescription(modifier: Modifier = Modifier) {
+fun GroupDescription() {
     val groupList = mutableListOf<String>("Все", "Женщинам", "Мужчинам", "Детям", "Аксессуары")
     Row(Modifier.fillMaxWidth()) {
         groupList.forEachIndexed { index, item ->
-            ChipsButton(index = index, item = item, buttonClick = {})
+            ChipsButton(index = index, item = item)
         }
     }
 }

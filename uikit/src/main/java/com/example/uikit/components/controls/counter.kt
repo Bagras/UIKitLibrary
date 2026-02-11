@@ -31,6 +31,7 @@ import com.example.uikit.theme.ColorInputStroke
 @Composable
 fun Counter(
     modifier: Modifier = Modifier,
+    quantity: Int,
     updateQuantityMinus: (Int) -> Unit,
     updateQuantityPlus: (Int) -> Unit
 ) {
@@ -45,7 +46,7 @@ fun Counter(
                 .height(32.dp)
                 .width(32.dp)
                 .clickable{
-                    updateQuantityMinus
+                    updateQuantityMinus(quantity)
                 },
             colors = CardDefaults.cardColors(ColorInputBG),
             shape = RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp),
@@ -74,7 +75,7 @@ fun Counter(
                 .height(32.dp)
                 .width(32.dp)
                 .clickable{
-                    updateQuantityPlus
+                    updateQuantityPlus(quantity)
                 },
             colors = CardDefaults.cardColors(ColorInputBG),
             shape = RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp),

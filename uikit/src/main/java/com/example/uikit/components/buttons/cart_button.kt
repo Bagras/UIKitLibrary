@@ -33,7 +33,7 @@ import com.example.uikit.theme.ColorWhite
 fun CartButton(price: Int, buttonClick: () -> Unit) {
     var buttonEnabled by remember { mutableStateOf(true) }
     Button(onClick = {
-    buttonClick
+    buttonClick()
     },
         modifier = Modifier
             .fillMaxWidth()

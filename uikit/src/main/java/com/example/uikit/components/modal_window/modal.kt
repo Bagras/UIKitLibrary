@@ -84,7 +84,7 @@ fun ModalWindowSelect(selectInputChoice: (String) -> Unit, sheetState: ModalBott
 @SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ModalBottomSheetFun(sheetState: ModalBottomSheetState, title: String, description: String, approximateCost: Float?, price: Float) {
+fun ModalBottomSheetFun(sheetState: ModalBottomSheetState, title: String, description: String, approximateCost: Float?, price: Float, onButtonClick: () -> Unit) {
     val scope = rememberCoroutineScope()
     Column(Modifier.padding(horizontal = 20.dp, vertical = 24.dp)) {
         Row(Modifier.fillMaxWidth()) {
@@ -145,7 +145,7 @@ fun ModalBottomSheetFun(sheetState: ModalBottomSheetState, title: String, descri
         }
         Spacer(Modifier.height(20.dp))
         Button(onClick = {
-
+            onButtonClick()
         },
             Modifier
                 .fillMaxWidth()

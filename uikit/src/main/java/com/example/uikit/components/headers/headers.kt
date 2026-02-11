@@ -53,7 +53,7 @@ fun Header1(clearCartButton: () -> Unit) {
                 contentDescription = null,
                 tint = Color.Unspecified,
                 modifier = Modifier.clickable{
-                    clearCartButton
+                    clearCartButton()
                 }
             )
         }
@@ -93,7 +93,7 @@ fun Header2(clearCartButton: () -> Unit) {
                 contentDescription = null,
                 tint = Color.Unspecified,
                 modifier = Modifier.clickable{
-                    clearCartButton
+                    clearCartButton()
                 }
             )
         }

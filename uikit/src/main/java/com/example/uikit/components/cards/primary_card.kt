@@ -32,7 +32,7 @@ import com.example.uikit.theme.CustomTypography
 import kotlinx.coroutines.launch
 
 @Composable
-fun PrimaryCard(cardName: String, cardCategories: String, cardPrice: Int, sheetState: ModalBottomSheetState) {
+fun PrimaryCard(cardName: String, cardCategories: String, cardPrice: Int, sheetState: ModalBottomSheetState, cartUpdate: () -> Unit, onCardClick: () -> Unit) {
     val scope = rememberCoroutineScope()
     Card(modifier = Modifier
         .fillMaxWidth()
@@ -48,10 +48,13 @@ fun PrimaryCard(cardName: String, cardCategories: String, cardPrice: Int, sheetS
            .fillMaxSize()
            .padding(16.dp)){
            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd){
-               SmallButtons({})
+               SmallButtons {
+                    cartUpdate()
+               }
            }
            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopStart){
                Text(cardName, style = CustomTypography.headline_medium, modifier = Modifier.clickable{
+                   onCardClick()
                     scope.launch { sheetState.show() }
                })
            }
@@ -70,7 +73,9 @@ fun PrimaryCard(cardName: String, cardCategories: String, cardPrice: Int, sheetS
 fun TestApp(modifier: Modifier = Modifier) {
     Column(Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
         PrimaryCard("Рубашка Воскресенье для машинного вязания", "Мужская одежда", 300,
-            rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+            rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
+            {},
+            {}
         )
     }
 }
